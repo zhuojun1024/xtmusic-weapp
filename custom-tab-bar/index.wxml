@@ -10,8 +10,8 @@
         value="{{ currentValue }}"
       />
       <view class="music-info-name">
-        <text>0:34/3:32</text>
-        <text>周杰伦 - 七里香</text>
+        <text>{{ currentTime || '00:00' }}/{{ duration || '00:00' }}</text>
+        <text>{{ ar }} - {{ name }}</text>
       </view>
     </view>
     <view class="play-control">

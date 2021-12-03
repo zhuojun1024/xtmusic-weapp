@@ -1,4 +1,4 @@
-import Notify from '../../miniprogram_npm/@vant/weapp/notify/notify'
+import Notify from '@vant/weapp/notify/notify'
 import md5 from 'md5'
 const api = require('./api')
 
@@ -21,11 +21,12 @@ Page({
   },
   onShow () {
     // 判断是否已经登录, 登录则直接进入首页
-    const userInfo = wx.getStorageSync('userInfo')
-    if (userInfo) {
+    const cookie = wx.getStorageSync('cookie')
+    if (cookie) {
       wx.switchTab({
         url: '/pages/index/index',
       })
+      return
     }
     // 计算发送验证码禁用时长
     this.getCountdown()
@@ -33,24 +34,48 @@ Page({
   },
   onUnload () {
     clearInterval(this.data.timer)
-    console.log('on unload')
   },
   toggleLoginType () {
-    console.log('toggleLoginType')
     const loginType = this.data.loginType === 'password' ? 'sms' : 'password'
-    this.setData({ loginType })
+    this.setData({
+      loginType,
+      phoneError: '',
+      passwordError: '',
+      captchaError: ''
+    })
+  },
+  // 获取用户信息
+  getAccountInfo () {
+    this.setData({ 'loading.login': true })
+    api.getAccountInfo().then(res => {
+      if (res.code === 200) {
+        const data = res.profile || {}
+        wx.setStorageSync('userInfo', data)
+        wx.switchTab({ url: '../index/index' })
+      } else {
+        throw res.message
+      }
+    }).catch(e => {
+      console.error('获取用户信息失败：', e)
+    }).finally(() => {
+      this.setData({ 'loading.login': false })
+    })
   },
   // 登录操作
   login () {
     if (this.validate()) {
       const { phone, password, captcha } = this.data
-      const params = { phone,  captcha }
+      const params = {
+        phone,
+        md5_password: this.data.loginType === 'password' ? md5(password) : undefined,
+        captcha
+      }
       this.setData({ 'loading.login': true })
       api.loginCellPhone(params).then(res => {
         if (res.code === 200) {
           if (res.cookie) {
-            wx.setStorageSync('cookie', encodeURIComponent(res.cookie))
-            wx.switchTab({ url: '../user/user' })
+            wx.setStorageSync('cookie', res.cookie)
+            this.getAccountInfo()
           }
         } else {
           throw res.message
@@ -86,7 +111,7 @@ Page({
     let valid = true
     const { phone, password, captcha } = this.data
     valid = this.validatePhone(phone)
-    if (this.loginType === 'password') {
+    if (this.data.loginType === 'password') {
       if (!password) {
         this.setData({ passwordError: '请输入密码' })
         valid = false
@@ -128,14 +153,14 @@ Page({
   getCountdown () {
     const timestamp = wx.getStorageSync(this.data.SEND_CAPTCHA)
     if (timestamp) {
-      const countdown = parseInt((timestamp - new Date().valueOf()) / 1000)
+      const countdown = parseInt((timestamp - new Date().getTime()) / 1000)
       this.setData({ countdown: countdown < 0 ? 0 : countdown })
     } else {
       this.setData({ countdown: 0 })
     }
   },
   setCountdown () {
-    const timestamp = new Date().valueOf() + 1000 * 60
+    const timestamp = new Date().getTime() + 1000 * 60
     wx.setStorageSync(this.data.SEND_CAPTCHA, timestamp)
   }
 })

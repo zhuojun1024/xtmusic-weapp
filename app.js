@@ -1,17 +1,18 @@
 // app.js
 App({
+  data: {
+    currentMusic: {},
+    bam: undefined
+  },
   onLaunch() {
-    // 展示本地存储能力
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
+    this.data.bam = wx.getBackgroundAudioManager()
+  },
+  playMusic (data) {
+    this.data.currentMusic = data
+    const bam = this.data.bam
+    bam.title = data.name
+    bam.singer = data.ar
+    bam.src = data.url
   },
   globalData: {
     userInfo: null

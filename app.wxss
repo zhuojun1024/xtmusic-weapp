@@ -2,5 +2,5 @@
 .container {
 } 
 .play-bar {
-  height: 48px;
+  height: 64px;
 }

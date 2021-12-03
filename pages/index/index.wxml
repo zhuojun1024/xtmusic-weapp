@@ -1,42 +1,14 @@
 <view class="index-container">
-  <van-search
-    shape="round"
-    placeholder="请输入搜索关键词"
-  />
-  <swiper
-    indicator-dots
-    autoplay
-    interval="{{ 2000 }}"
-    duration="{{ 500 }}"
+  <view
+    wx:for="{{ playList }}"
+    wx:key="id"
+    class="play-list-item"
+    bindtap="toPlayListPage"
+    data-id="{{ item.id }}"
   >
-    <block
-      wx:for="{{ ['#1AAD19', '#2782D7', '#4050b5'] }}"
-      wx:key="item"
-      style="background-color: red;"
-    >
-      <swiper-item>
-        <view style="width: 100%; height: 100%; background-color: {{ item }};">
-        </view>
-      </swiper-item>
-    </block>
-  </swiper>
-  <van-grid>
-    <van-grid-item
-      wx:for="{{ 8 }}"
-      wx:key="item"
-      icon="photo-o"
-      text="文字"
-    />
-  </van-grid>
-  <van-card
-    wx:for="{{ 10 }}"
-    wx:key="index"
-    num="2"
-    price="2.00"
-    desc="描述信息"
-    title="商品标题"
-    thumb="https://img01.yzcdn.cn/vant/ipad.jpeg"
-  />
+    {{ index + 1 }}. {{ item.name }}
+    <text style="float: right;">{{ item.trackCount }}</text>
+  </view>
   <!-- tabbar占位以防止内容被遮挡 -->
   <view>
     <view class="play-bar" />

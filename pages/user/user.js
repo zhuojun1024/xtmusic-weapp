@@ -5,19 +5,16 @@ Page({
   },
   onShow() {
     this.getTabBar().init()
-    this.getAccountInfo()
-  },
-  getAccountInfo () {
-    api.getAccountInfo().then(res => {
-      console.log(res)
-    }).catch(e => {
-      
-    })
+    // 获取用户信息
+    this.setData({ userInfo: wx.getStorageSync('userInfo') })
   },
   logout() {
-    wx.removeStorageSync('userInfo')
-    wx.reLaunch({
-      url: '/pages/login/login',
+    api.logout().finally(() => {
+      wx.removeStorageSync('userInfo')
+      wx.removeStorageSync('cookie')
+      wx.reLaunch({
+        url: '/pages/login/login',
+      })
     })
   }
 })

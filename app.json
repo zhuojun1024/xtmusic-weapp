@@ -7,8 +7,9 @@
     "pages/setting/setting",
     "pages/about/about",
     "pages/category/category",
-    "pages/test"
+    "pages/playList/playList"
   ],
+  "requiredBackgroundModes": ["audio"],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

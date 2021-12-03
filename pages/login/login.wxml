@@ -12,6 +12,7 @@
       bind:change="onPhoneChange"
     />
     <van-field
+      wx:if="{{ loginType === 'password' }}"
       label="密码"
       placeholder="请输入密码"
       type="password"
@@ -20,6 +21,7 @@
       bind:change="onPasswordChange"
     />
     <van-field
+      wx:else
       label="验证码"
       placeholder="请输入验证码"
       confirm-type="完成"

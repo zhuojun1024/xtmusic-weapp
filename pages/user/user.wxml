@@ -1,7 +1,7 @@
 <view class="user-container">
-  <view>
+  <view style="text-align: center;">
     <view class="user-info">
-      <text>用户名：{{ userInfo.userName }}</text>
+      <text>用户名：{{ userInfo.nickname }}</text>
     </view>
     <van-button bind:click="logout">
       注销登录

@@ -1,0 +1,14 @@
+<view>
+  <view
+    class="music-list-item"
+    wx:for="{{ data }}"
+    wx:key="id"
+    bindtap="playMusic"
+    data-id="{{ item.id }}"
+    data-name="{{ item.name }}"
+    data-ar="{{ item.ar }}"
+    data-dt="{{ item.dt }}"
+  >
+    <text>{{ index + 1 }}. {{ item.ar }} - {{ item.name }}</text>
+  </view>
+</view>

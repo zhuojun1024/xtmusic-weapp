@@ -1,5 +1,4 @@
-
-.play-list-item {
+.music-list-item {
   padding: 16px 24px;
   font-size: 14px;
   border-bottom: 1px solid #efefef;
