@@ -1,0 +1,56 @@
+<view class="login-container">
+  <view class="login-form">
+    <view class="login-title">
+      <text>登录</text>
+    </view>
+    <van-field
+      auto-focus
+      label="手机号"
+      placeholder="请输入手机号"
+      model:value="{{ phone }}"
+      error-message="{{ phoneError }}"
+      bind:change="onPhoneChange"
+    />
+    <van-field
+      label="密码"
+      placeholder="请输入密码"
+      type="password"
+      model:value="{{ password }}"
+      error-message="{{ passwordError }}"
+      bind:change="onPasswordChange"
+    />
+    <van-field
+      label="验证码"
+      placeholder="请输入验证码"
+      confirm-type="完成"
+      model:value="{{ captcha }}"
+      error-message="{{ captchaError }}"
+      bind:change="onCaptchaChange"
+      bind:confirm="login"
+    >
+      <van-button
+        slot="button"
+        size="small"
+        type="primary"
+        disabled="{{ countdown > 0 }}"
+        loading="{{ loading.send }}"
+        bind:click="sendCaptcha"
+      >
+        发送验证码
+        {{ countdown > 0 ? '(' + countdown + ')' : '' }}
+      </van-button>
+    </van-field>
+    <view class="login-type">
+      <text bindtap="toggleLoginType">{{ loginType === 'password' ? '短信验证码登录' : '账号密码登录' }}</text>
+    </view>
+    <van-button
+      custom-class="login-button"
+      type="primary"
+      loading="{{ loading.login }}"
+      bind:click="login"
+    >
+      登录
+    </van-button>
+  </view>
+  <van-notify id="van-notify" />
+</view>

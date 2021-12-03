@@ -1,0 +1,23 @@
+<view>
+  <van-skeleton title avatar row="2" />
+  <van-cell-group title=" ">
+    <van-cell
+      is-link
+      wx:for="{{ ['地址管理'] }}"
+      wx:key="index"
+      title="{{ item }}"
+      link-type="navigateTo"
+      url="/pages/about/about"
+    />
+  </van-cell-group>
+  <van-cell-group title=" ">
+    <van-cell
+      is-link
+      wx:for="{{ ['账户安全', '设置字体大小', '支付设置', '通用', '长辈版'] }}"
+      wx:key="index"
+      title="{{ item }}"
+      link-type="navigateTo"
+      url="/pages/about/about"
+    />
+  </van-cell-group>
+</view>

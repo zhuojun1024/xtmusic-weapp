@@ -1,0 +1,6 @@
+/**app.wxss**/
+.container {
+} 
+.play-bar {
+  height: 48px;
+}

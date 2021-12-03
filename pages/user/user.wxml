@@ -1,0 +1,11 @@
+<view class="user-container">
+  <view>
+    <view class="user-info">
+      <text>用户名：{{ userInfo.userName }}</text>
+    </view>
+    <van-button bind:click="logout">
+      注销登录
+    </van-button>
+    <van-notify id="van-notify" />
+  </view>
+</view>

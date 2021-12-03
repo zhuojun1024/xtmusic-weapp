@@ -1,0 +1,14 @@
+<view>
+  <van-search
+    shape="round"
+    placeholder="请输入搜索关键词"
+  />
+  <van-tree-select
+    height="calc(100vh - 138px)"
+    items="{{ items }}"
+    main-active-index="{{ mainActiveIndex }}"
+    active-id="{{ activeId }}"
+    bind:click-nav="onClickNav"
+    bind:click-item="onClickItem"
+  />
+</view>
