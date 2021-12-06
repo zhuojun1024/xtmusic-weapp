@@ -1,6 +1,24 @@
-
 .play-list-item {
-  padding: 16px 24px;
+  padding: 8px 12px;
   font-size: 14px;
   border-bottom: 1px solid #efefef;
+}
+.play-list-item image, .play-list-item view {
+  display: inline-block;
+  vertical-align: middle;
+}
+.play-list-item image {
+  width: 48px;
+  height: 48px;
+}
+.play-list-item view {
+  margin-left: 12px;
+}
+.play-list-item view text {
+  display: block;
+}
+.play-list-item view text:last-child {
+  margin-top: 4px;
+  color: #999999;
+  font-size: 12px;
 }

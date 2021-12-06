@@ -2,14 +2,14 @@
   "pages": [
     "pages/login/login",
     "pages/index/index",
-    "pages/logs/logs",
     "pages/user/user",
-    "pages/setting/setting",
-    "pages/about/about",
-    "pages/category/category",
-    "pages/playList/playList"
+    "pages/playList/playList",
+    "pages/playControl/playControl",
+    "pages/search/search"
   ],
-  "requiredBackgroundModes": ["audio"],
+  "requiredBackgroundModes": [
+    "audio"
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -31,6 +31,10 @@
       {
         "text": "首页",
         "pagePath": "pages/index/index"
+      },
+      {
+        "text": "搜索",
+        "pagePath": "pages/search/search"
       },
       {
         "text": "个人",

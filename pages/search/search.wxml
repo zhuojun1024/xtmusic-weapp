@@ -1,0 +1,29 @@
+<view>
+  <van-search
+    placeholder="请输入搜索关键词"
+    model:value="{{ keyword }}"
+    bind:search="onSearch"
+  />
+  <scroll-view
+    scroll-y
+    style="height: calc(100vh - 168px);"
+    bindscrolltolower="onScrollToLower"
+  >
+    <view
+      class="music-list-item {{ currentMusicId === item.id ? 'active' : '' }}"
+      wx:for="{{ data }}"
+      wx:key="id"
+      bindtap="getMusicUrl"
+      data-id="{{ item.id }}"
+    >
+      <view>
+        {{ index + 1 }}
+      </view>
+      <view>
+        <text>{{ item.name }}</text>
+        <text>{{ item.ar }}</text>
+      </view>
+    </view>
+  </scroll-view>
+  <van-notify id="van-notify" />
+</view>

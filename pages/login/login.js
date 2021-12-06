@@ -20,14 +20,6 @@ Page({
     }
   },
   onShow () {
-    // 判断是否已经登录, 登录则直接进入首页
-    const cookie = wx.getStorageSync('cookie')
-    if (cookie) {
-      wx.switchTab({
-        url: '/pages/index/index',
-      })
-      return
-    }
     // 计算发送验证码禁用时长
     this.getCountdown()
     this.data.timer = setInterval(this.getCountdown, 500)
@@ -50,8 +42,8 @@ Page({
     api.getAccountInfo().then(res => {
       if (res.code === 200) {
         const data = res.profile || {}
-        wx.setStorageSync('userInfo', data)
-        wx.switchTab({ url: '../index/index' })
+        getApp().globalData.userInfo = data
+        wx.switchTab({ url: '/pages/search/search' })
       } else {
         throw res.message
       }

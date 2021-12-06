@@ -1,18 +1,25 @@
 Component({
   data: {
-    bam: undefined,
+    currentMusicId: undefined,
+    musicList: [],
+    showPlayList: false,
     timer: undefined,
-    currentValue: 10,
+    currentValue: 0,
     currentTime: 0,
     duration: 0,
     name: '歌曲名称',
     ar: '歌手',
+    coverImgUrl: '',
     playState: 'pause',
     active: 0,
     list: [{
-      text: '首页',
+      text: "搜索",
+      url: "/pages/search/search",
+      icon: 'search'
+    }, {
+      text: '歌单',
       url: '/pages/index/index',
-      icon: 'home-o'
+      icon: 'like-o'
     }, {
       text: '个人',
       url: '/pages/user/user',
@@ -22,9 +29,12 @@ Component({
   lifetimes: {
     attached: function() {
       // 在组件实例进入页面节点树时执行
-      this.setData({ bam: getApp().data.bam })
+      this.setMusicInfo()
       this.refreshState()
-      const timer = setInterval(this.refreshState.bind(this), 500)
+      const timer = setInterval(() => {
+        this.setMusicInfo()
+        this.refreshState()
+      }, 500)
       this.setData({ timer })
     },
     detached: function() {
@@ -33,17 +43,44 @@ Component({
     },
   },
   methods: {
+    showPlayControl () {
+      if (this.data.currentMusicId) {
+        wx.navigateTo({ url: '/pages/playControl/playControl' })
+      }
+    },
+    getMusicUrl (e) {
+      const id = e.currentTarget.dataset.id
+      const record = this.data.musicList.find(item => item.id === id)
+      getApp().getMusicUrl(record)
+    },
+    onPopupShow () {
+      this.setData({
+        musicList: getApp().globalData.musicList,
+        showPlayList: true
+      })
+    },
+    onPopupClose () {
+      this.setData({ showPlayList: false })
+    },
+    setMusicInfo () {
+      const musicInfo = getApp().globalData.musicInfo
+      if (musicInfo) {
+        this.setData({
+          currentMusicId: musicInfo.id,
+          name: musicInfo.name,
+          ar: musicInfo.ar,
+          coverImgUrl: musicInfo.al.picUrl || ''
+        })
+      }
+    },
     refreshState () {
-      const bam = this.data.bam
+      const bam = wx.getBackgroundAudioManager()
       if (bam && bam.duration) {
-        const currentMusic = getApp().data.currentMusic || {}
         this.setData({
           playState: bam.paused ? 'pause' : 'playing',
           currentValue: bam.currentTime / bam.duration * 100,
           currentTime: this.formatTime(bam.currentTime),
-          duration: this.formatTime(bam.duration),
-          name: currentMusic.name,
-          ar: currentMusic.ar
+          duration: this.formatTime(bam.duration)
         })
       }
     },
@@ -54,7 +91,8 @@ Component({
       return `${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`
     },
     toggleState () {
-      const { bam, playState } = this.data
+      const bam = wx.getBackgroundAudioManager()
+      const playState = this.data.playState
       if (!bam) return
       if (playState === 'playing') {
         this.setData({ playState: 'pause' })

@@ -8,7 +8,7 @@
 .login-form .login-title {
   font-size: 32px;
   font-weight: 600;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 .login-form .login-type {
   margin-top: 8px;

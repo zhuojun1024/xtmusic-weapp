@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "van-slider": "@vant/weapp/slider/index"
+    "van-slider": "@vant/weapp/slider/index",
+    "van-popup": "@vant/weapp/popup/index"
   }
 }

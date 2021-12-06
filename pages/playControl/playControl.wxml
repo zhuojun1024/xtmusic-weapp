@@ -1,0 +1,62 @@
+<van-tabs
+  swipeable
+  animated
+  nav-class="play-control-tabs"
+  color="#00B26A"
+>
+  <van-tab title="歌曲">
+    <view class="play-control">
+      <view class="music-pic-image">
+        <image src="{{ coverImgUrl ? coverImgUrl + '?param=512y512' : '' }}" />
+      </view>
+      <view class="music-info">
+        <text>{{ name }}</text>
+        <text>{{ ar }}</text>
+      </view>
+      <view class="current-time">
+        <text>{{ currentTime || '00:00' }}</text>
+        <van-slider
+          bar-height="4px"
+          active-color="#00B26A"
+          value="{{ currentValue }}"
+          bind:drag-start="onDragStart"
+          bind:drag-end="onDragEnd"
+          bind:change="onSliderChange"
+        />
+        <text>{{ duration || '00:00' }}</text>
+      </view>
+      <view class="control-button-group">
+        <van-icon
+          name="arrow-left"
+          bind:click="onPrev"
+        />
+        <van-icon
+          class="play-pause"
+          name="{{ playState === 'playing' ? 'pause-circle-o' : 'play-circle-o' }}"
+          bind:click="toggleState"
+        />
+        <van-icon
+          name="arrow"
+          bind:click="onNext"
+        />
+      </view>
+    </view>
+  </van-tab>
+  <van-tab title="歌词">
+    <scroll-view
+      scroll-x
+      scroll-y
+      class="lyric-list"
+    >
+      <view style="height: 128px;" />
+      <text
+        class="lyric-list-item"
+        wx:for="{{ lyrics }}"
+        wx:key="index"
+      >
+        {{ item }}
+      </text>
+      <view style="height: 128px;" />
+    </scroll-view>
+  </van-tab>
+</van-tabs>

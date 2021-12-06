@@ -1,8 +1,12 @@
 .user-container {
-  height: calc(100vh - 50px);
+  height: calc(100vh - 128px);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.user-avatar {
+  width: 128px;
+  height: 128px;
 }
 .user-info {
   margin-bottom: 32px;

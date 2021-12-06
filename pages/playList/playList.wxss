@@ -1,5 +1,30 @@
+.music-list-item view {
+  display: inline-block;
+  vertical-align: middle;
+}
+.music-list-item view:first-child {
+  width: 48px;
+  text-align: center;
+  color: #666666;
+  font-size: 16px;
+}
+.music-list-item view:last-child {
+  width: calc(100% - 50px);
+}
+.music-list-item view:last-child text {
+  display: block;
+}
+.music-list-item view:last-child text:last-child {
+  color: #666666;
+  font-size: 11px;
+  margin-top: 4px;
+}
 .music-list-item {
-  padding: 16px 24px;
+  padding: 8px 12px;
+  padding-left: 0;
   font-size: 14px;
   border-bottom: 1px solid #efefef;
+}
+.music-list-item.active {
+  background-color: #efefef;
 }

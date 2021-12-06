@@ -1,7 +1,8 @@
+@import '/pages/playList/playList.wxss';
 .play-bar {
-  height: 64px;
+  height: 60px;
   color: white;
-  padding: 12px;
+  padding: 10px 12px;
   box-sizing: border-box;
   background-color: #666666;
 }
@@ -13,21 +14,36 @@
 .play-bar .music-info {
   padding: 0 12px;
   box-sizing: border-box;
-  width: calc(100% - 80px);
+  width: calc(100% - 120px);
+}
+.play-bar .music-info .music-info-time {
+  font-size: 12px;
 }
 .play-bar .music-info .music-info-name {
   font-size: 12px;
-  margin-top: 8px;
-}
-.play-bar .music-info .music-info-name text:first-child {
-  margin-right: 8px;
+  margin-top: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .play-bar .play-control {
-  width: 40px;
+  width: 80px;
   font-size: 32px;
   text-align: center;
+}
+.play-bar .play-control .icon-list {
+  margin-left: 8px;
 }
 .play-bar .album-image, .play-bar .music-info, .play-bar .play-control {
   display: inline-block;
   vertical-align: middle;
+}
+.popup-title {
+  padding: 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+.music-list-item {
+  padding: 16px 12px;
 }

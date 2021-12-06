@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-slider": "@vant/weapp/slider/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index"
+  },
+  "navigationBarTitleText": "播放控制"
+}

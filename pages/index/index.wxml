@@ -1,4 +1,4 @@
-<view class="index-container">
+<scroll-view class="index-container">
   <view
     wx:for="{{ playList }}"
     wx:key="id"
@@ -6,12 +6,19 @@
     bindtap="toPlayListPage"
     data-id="{{ item.id }}"
   >
-    {{ index + 1 }}. {{ item.name }}
-    <text style="float: right;">{{ item.trackCount }}</text>
+    <image
+      lazy-load
+      src="{{ item.coverImgUrl ? item.coverImgUrl + '?param=48y48' : '' }}"
+    />
+    <view>
+      <text>{{ item.name }}</text>
+      <text>{{ item.trackCount }} 首</text>
+    </view>
   </view>
   <!-- tabbar占位以防止内容被遮挡 -->
   <view>
     <view class="play-bar" />
     <van-tabbar placeholder />
   </view>
-</view>
+  <van-notify id="van-notify" />
+</scroll-view>

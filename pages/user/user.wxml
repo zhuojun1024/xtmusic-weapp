@@ -1,7 +1,11 @@
 <view class="user-container">
   <view style="text-align: center;">
+    <image
+      class="user-avatar"
+      src="{{ userInfo.avatarUrl }}"
+    />
     <view class="user-info">
-      <text>用户名：{{ userInfo.nickname }}</text>
+      <text>{{ userInfo.nickname || '用户名' }}</text>
     </view>
     <van-button bind:click="logout">
       注销登录

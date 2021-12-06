@@ -1,24 +1,35 @@
 <view>
-  <view class="play-bar">
-    <view class="album-image">
-    </view>
-    <view class="music-info">
-      <van-slider
-        use-button-slot
-        bar-height="4px"
-        active-color="#00B26A"
-        value="{{ currentValue }}"
+  <view>
+    <van-slider
+      use-button-slot
+      bar-height="4px"
+      active-color="#00B26A"
+      value="{{ currentValue }}"
+    />
+    <view class="play-bar">
+      <image
+        class="album-image"
+        src="{{ coverImgUrl ? coverImgUrl + '?param=40y40' : '' }}"
+        bindtap="showPlayControl"
       />
-      <view class="music-info-name">
-        <text>{{ currentTime || '00:00' }}/{{ duration || '00:00' }}</text>
-        <text>{{ ar }} - {{ name }}</text>
+      <view
+        class="music-info"
+        bindtap="showPlayControl"
+      >
+        <view class="music-info-time">{{ currentTime || '00:00' }}/{{ duration || '00:00' }}</view>
+        <view class="music-info-name">{{ ar }} - {{ name }}</view>
       </view>
-    </view>
-    <view class="play-control">
-      <van-icon
-        name="{{ playState === 'playing' ? 'pause-circle-o' : 'play-circle-o' }}"
-        bind:click="toggleState"
-      />
+      <view class="play-control">
+        <van-icon
+          name="{{ playState === 'playing' ? 'pause-circle-o' : 'play-circle-o' }}"
+          bind:click="toggleState"
+        />
+        <van-icon
+          name="more-o"
+          class="icon-list"
+          bind:click="onPopupShow"
+        />
+      </view>
     </view>
   </view>
   <van-tabbar
@@ -34,4 +45,28 @@
       {{ item.text }}
     </van-tabbar-item>
   </van-tabbar>
+  <van-popup
+    closeable
+    show="{{ showPlayList }}"
+    position="bottom"
+    bind:close="onPopupClose"
+  >
+    <view class="popup-title">
+      播放列表
+    </view>
+    <scroll-view
+      scroll-y
+      style="height: 60vh;"
+    >
+      <view
+        class="music-list-item {{ currentMusicId === item.id ? 'active' : '' }}"
+        wx:for="{{ musicList }}"
+        wx:key="id"
+        bindtap="getMusicUrl"
+        data-id="{{ item.id }}"
+      >
+        <text>{{ item.ar }} - {{ item.name }}</text>
+      </view>
+    </scroll-view>
+  </van-popup>
 </view>
